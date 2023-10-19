@@ -1,12 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Pancake.Apex;
 using Pancake.LevelSystem;
+using Pancake.Scriptable;
 using UnityEngine;
 
 namespace Pancake.SceneFlow
 {
     public class LevelNormal : LevelComponent
     {
+        [SerializeField, Group("Event")] private ScriptableEventNoParam rollEvent;
+        [SerializeField, Group("Event")] private ScriptableEventNoParam diceRollEvent;
+        
+        private List<Dice> dices;
+        private DiceRoller diceRoller;
+        
         private bool _isFingerDown;
         private bool _isFingerDrag;
+
+        private void Start()
+        {
+            dices = GetComponentsInChildren<Dice>().ToList();
+            diceRoller = GetComponentInChildren<DiceRoller>();
+            
+            diceRollEvent.OnRaised += SetupRolling;
+        }
+
+        private void OnDestroy()
+        {
+            diceRollEvent.OnRaised -= SetupRolling;
+        }
 
         protected override void OnSpawned()
         {
@@ -60,5 +84,13 @@ namespace Pancake.SceneFlow
         protected override void OnLoseLevel() {  }
 
         protected override void OnWinLevel() {  }
+
+        private void SetupRolling()
+        {
+            if (dices.TrueForAll(item => !item.isRoll))
+            {
+                diceRoller.gameObject.SetActive(true);
+            }
+        }
     }
 }
