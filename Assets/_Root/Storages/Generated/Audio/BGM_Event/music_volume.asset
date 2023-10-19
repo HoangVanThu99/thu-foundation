@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: music_volume
   m_EditorClassIdentifier: 
   guid: f40c18cdb6b391741b188b73d884cb92
-  value: 1
+  value: 0
   debugLogEnabled: 0
   saved: 1
   defaultValue: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: last_level_show_rate
   m_EditorClassIdentifier: 
   guid: eee83a1c61699f34e8eba711713dffd8
-  value: 0
+  value: 32
   debugLogEnabled: 0
   saved: 1
   defaultValue: 0

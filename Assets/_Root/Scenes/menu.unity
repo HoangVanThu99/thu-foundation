@@ -2771,6 +2771,7 @@ MonoBehaviour:
   popupNotification: NotificationPopup
   popupRename: RenamePopup
   outfitPageName: OutfitPage
+  inGamePageName: InGamePage
   buttonAudio: {fileID: 1679153822}
   changeSceneEvent: {fileID: 11400000, guid: 10247cca5ce308843ae5e0c25c17942e, type: 2}
 --- !u!1 &2023170879

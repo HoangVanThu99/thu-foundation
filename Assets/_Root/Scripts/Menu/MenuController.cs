@@ -29,6 +29,7 @@ namespace Pancake.SceneFlow
         [SerializeField, PopupPickup] private string popupNotification;
         [SerializeField, PopupPickup] private string popupRename;
         [SerializeField, PagePickup] private string outfitPageName;
+        
 
         [Header("OTHER")] [SerializeField] private AudioComponent buttonAudio;
         [SerializeField] private ScriptableEventString changeSceneEvent;
@@ -72,7 +73,10 @@ namespace Pancake.SceneFlow
             }
         }
 
-        private void OnButtonTapToPlayPressed() { changeSceneEvent.Raise(Constant.GAMEPLAY_SCENE); }
+        private void OnButtonTapToPlayPressed()
+        {
+            changeSceneEvent.Raise(Constant.GAMEPLAY_SCENE);
+        }
 
         private void OnButtonShopPressed() { MainPopupContainer.Push<ShopPopup>(popupShop, true); }
 

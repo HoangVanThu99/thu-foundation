@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: sfx_volume
   m_EditorClassIdentifier: 
   guid: 0a97e9acdf82e434983225db6d5b578f
-  value: 1
+  value: 0
   debugLogEnabled: 0
   saved: 1
   defaultValue: 1
