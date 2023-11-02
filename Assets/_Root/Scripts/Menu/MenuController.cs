@@ -27,9 +27,8 @@ namespace Pancake.SceneFlow
         [SerializeField, PopupPickup] private string popupUpdate;
         [SerializeField, PopupPickup] private string popupDailyReward;
         [SerializeField, PopupPickup] private string popupNotification;
-        [SerializeField, PopupPickup] private string popupRename;
+        [SerializeField, PopupPickup] private string popupLeaderboard;
         [SerializeField, PagePickup] private string outfitPageName;
-        
 
         [Header("OTHER")] [SerializeField] private AudioComponent buttonAudio;
         [SerializeField] private ScriptableEventString changeSceneEvent;
@@ -37,6 +36,7 @@ namespace Pancake.SceneFlow
 
         private PopupContainer MainPopupContainer => PopupContainer.Find(Constant.MAIN_POPUP_CONTAINER);
         private PageContainer MainPageContainer => PageContainer.Find(Constant.MAIN_PAGE_CONTAINER);
+        private PopupContainer PersistentPopupContainer => PopupContainer.Find(Constant.PERSISTENT_POPUP_CONTAINER);
 
         private void Start()
         {
@@ -49,7 +49,7 @@ namespace Pancake.SceneFlow
             WaitShowUpdate();
         }
 
-        private void OnButtonRankPressed() { MainPopupContainer.Push<RenamePopup>(popupRename, true); }
+        private void OnButtonRankPressed() { MainPopupContainer.Push<LeaderboardPopup>(popupLeaderboard, true); }
 
         private void OnButtonDailyRewardPressed() { MainPopupContainer.Push<DailyRewardPopup>(popupDailyReward, true); }
 
@@ -73,14 +73,18 @@ namespace Pancake.SceneFlow
             }
         }
 
-        private void OnButtonTapToPlayPressed()
+        private async void OnButtonTapToPlayPressed()
         {
+            await PersistentPopupContainer.Push<SceneTransitionPopup>(nameof(SceneTransitionPopup),
+                false,
+                onLoad: t => { t.popup.view.Setup(true); },
+                popupId: nameof(SceneTransitionPopup)); // show transition
             changeSceneEvent.Raise(Constant.GAMEPLAY_SCENE);
         }
 
         private void OnButtonShopPressed() { MainPopupContainer.Push<ShopPopup>(popupShop, true); }
 
-        private void OnButtonSettingPressed() { MainPopupContainer.Push<SettingPopup>(popupSetting, true); }
+        private void OnButtonSettingPressed() { MainPopupContainer.Push<SettingPopup>(popupSetting, true, popupId: popupSetting); }
 
         protected override void OnDisabled()
         {

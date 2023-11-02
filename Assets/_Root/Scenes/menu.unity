@@ -614,7 +614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tap to play
+  m_text: TAP TO PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2f49fe8c22d94f9a9e6cd06ad490155, type: 2}
   m_sharedMaterial: {fileID: 3074828514974314926, guid: c2f49fe8c22d94f9a9e6cd06ad490155, type: 2}
@@ -641,8 +641,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 4
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1384,7 +1384,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 140, y: -125}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 138, y: 145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &527389383
 MonoBehaviour:
@@ -1489,7 +1489,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 14a4f116287a1704685337f9640647fb, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1586,7 +1586,6 @@ GameObject:
   m_Component:
   - component: {fileID: 933445161}
   - component: {fileID: 933445160}
-  - component: {fileID: 933445159}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1594,14 +1593,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &933445159
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933445158}
-  m_Enabled: 1
 --- !u!20 &933445160
 Camera:
   m_ObjectHideFlags: 0
@@ -2769,7 +2760,7 @@ MonoBehaviour:
   popupUpdate: UpdatePopup
   popupDailyReward: DailyRewardPopup
   popupNotification: NotificationPopup
-  popupRename: RenamePopup
+  popupLeaderboard: LeaderboardPopup
   outfitPageName: OutfitPage
   inGamePageName: InGamePage
   buttonAudio: {fileID: 1679153822}
@@ -2934,7 +2925,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   clickType: 0
-  allowMultipleClick: 1
+  allowMultipleClick: 0
   timeDisableButton: 0.2
   doubleClickInterval: 0.2
   longClickInterval: 0.5
@@ -2951,11 +2942,11 @@ MonoBehaviour:
   onHold:
     m_PersistentCalls:
       m_Calls: []
-  isMotion: 1
+  isMotion: 0
   ignoreTimeScale: 0
   isMotionUnableInteract: 0
-  isAffectToSelf: 0
-  affectObject: {fileID: 290372030}
+  isAffectToSelf: 1
+  affectObject: {fileID: 0}
   enabledSound: 0
   audioClick: {fileID: 0}
   audioPlayEvent: {fileID: 0}

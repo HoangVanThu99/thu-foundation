@@ -18,6 +18,7 @@ namespace Pancake.UI
         [SerializeField] private Button buttonVideoX5;
         [SerializeField] private Button buttonContinue;
         [SerializeField] private Button buttonShop;
+        [SerializeField] private GameObject uiConfetti;
         [SerializeField] private int numberCoinReceive = 100;
         [SerializeField, PopupPickup] private string popupShop;
 
@@ -31,8 +32,7 @@ namespace Pancake.UI
         [SerializeField] private IntVariable winGifProgresValue;
         [SerializeField] private Vector2Int rangeGiftValueIncrease;
 
-        [Header("SOUND")]
-        [SerializeField] private bool overrideBGM;
+        [Header("SOUND")] [SerializeField] private bool overrideBGM;
         [SerializeField, ShowIf(nameof(overrideBGM))] private Audio bgmWin;
         [SerializeField, ShowIf(nameof(overrideBGM))] private ScriptableEventAudio playBgmEvent;
 
@@ -41,6 +41,7 @@ namespace Pancake.UI
 
         private LevelComponent _prewarmNextLevel;
         private PopupContainer MainPopupContainer => PopupContainer.Find(Constant.MAIN_POPUP_CONTAINER);
+        private PopupContainer PersistentPopupContainer => PopupContainer.Find(Constant.PERSISTENT_POPUP_CONTAINER);
 
         protected override UniTask Initialize()
         {
@@ -60,21 +61,16 @@ namespace Pancake.UI
         private async void OnButtonHomePressed()
         {
             PlaySoundClose();
+            uiConfetti.SetActive(false);
+            await PersistentPopupContainer.Push<SceneTransitionPopup>(nameof(SceneTransitionPopup),
+                false,
+                onLoad: t => { t.popup.view.Setup(); },
+                popupId: nameof(SceneTransitionPopup)); // show transition
             await PopupHelper.Close(transform);
             changeSceneEvent.Raise(Constant.MENU_SCENE);
         }
 
-        private void OnButtonVideoX5Pressed()
-        {
-            if (Application.isMobilePlatform)
-            {
-                rewardVariable.Context().OnCompleted(() => { InternalContinue(numberCoinReceive * 5); }).Show();
-            }
-            else
-            {
-                InternalContinue(numberCoinReceive * 5);
-            }
-        }
+        private void OnButtonVideoX5Pressed() { rewardVariable.Context().OnCompleted(() => { InternalContinue(numberCoinReceive * 5); }).Show(); }
 
         private void CollectReward(int number)
         {
@@ -87,7 +83,8 @@ namespace Pancake.UI
             await UniTask.WaitUntil(() => _prewarmNextLevel != null);
             reCreateLevelLoadedEvent.Raise();
             PlaySoundClose();
-            await PopupHelper.Close(transform);
+            uiConfetti.SetActive(false);
+            await PopupHelper.Close(transform, false);
             showUiGameplayEvent.Raise();
         }
 
@@ -100,7 +97,7 @@ namespace Pancake.UI
             App.Delay(2f, Continute);
         }
 
-       private async void Refresh()
+        private async void Refresh()
         {
             _prewarmNextLevel = null;
             buttonContinue.gameObject.SetActive(true);

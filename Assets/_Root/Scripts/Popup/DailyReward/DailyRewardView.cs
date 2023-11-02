@@ -54,7 +54,7 @@ namespace Pancake.UI
             {
                 // unlock outfit
                 // show popup unlock
-                data.Value.outfitUnit.Value.isUnlocked = true;
+                data.Value.outfitUnit.Unlock();
             }
 
             if (UserData.GetCurrentDayDailyReward() == datas.Count)
@@ -67,11 +67,8 @@ namespace Pancake.UI
                 UserData.NextDayDailyReward(); // next day
             }
 
-            data.Value.isClaimed = true;
+            data.Claim();
             boolDailyVariable.Value = true;
-#if UNITY_EDITOR
-            boolDailyVariable.Save();
-#endif
             Refresh();
         }
 

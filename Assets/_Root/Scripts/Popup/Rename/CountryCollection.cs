@@ -17,7 +17,9 @@ namespace Pancake.SceneFlow
         public CountryData Get(string code)
         {
             Enum.TryParse(code, out ECountryCode countryCode);
-            return collection[(int) countryCode];
+            var index = (int) countryCode;
+            if (index >= collection.Length) index = 225; // US
+            return collection[index];
         }
 
 #if UNITY_EDITOR
@@ -63,7 +65,6 @@ namespace Pancake.SceneFlow
                     if (collection[i].code.ToString() == Path.GetFileNameWithoutExtension(path))
                     {
                         collection[i].icon = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                        Debug.Log(collection[i].icon.name);
                     }
                 }
             }

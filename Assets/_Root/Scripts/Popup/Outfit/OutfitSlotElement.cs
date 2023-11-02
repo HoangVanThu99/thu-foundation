@@ -38,7 +38,7 @@ namespace Pancake.SceneFlow
 
             render.ChangeSkin(element.Value.skinId);
             render.transform.localPosition = element.Value.viewPosition;
-            if (element.Value.isUnlocked)
+            if (element.IsUnlocked())
             {
                 foreach (var b in buttonDict)
                 {
@@ -101,7 +101,7 @@ namespace Pancake.SceneFlow
 
         private void UnlockedOutfitInternal()
         {
-            _outfitUnit.Value.isUnlocked = true;
+            _outfitUnit.Unlock();
             foreach (var b in buttonDict)
             {
                 b.Value.gameObject.SetActive(false);
@@ -129,7 +129,7 @@ namespace Pancake.SceneFlow
         private void OnButtonPressed()
         {
             // to_do with outfit
-            if (_outfitUnit.Value.isUnlocked)
+            if (_outfitUnit.IsUnlocked())
             {
                 selectedObject.SetActive(true);
 
@@ -159,21 +159,48 @@ namespace Pancake.SceneFlow
 
         private void UpdateSelectedEffect()
         {
-            if (_outfitUnit.Value.isUnlocked)
+            if (_outfitUnit.IsUnlocked())
             {
                 switch (_outfitType)
                 {
                     case OutfitType.Hat:
                         string hatId = UserData.GetCurrentSkinHat();
-                        selectedObject.SetActive(hatId == _outfitUnit.Value.id);
+                        if (string.IsNullOrEmpty(hatId))
+                        {
+                            if (_outfitUnit.Value.unlockType == OutfitUnlockType.BeginnerGift)
+                            {
+                                UserData.SetCurrentSkinHat(_outfitUnit.Value.id);
+                                selectedObject.SetActive(true);
+                            }
+                        }
+                        else selectedObject.SetActive(hatId == _outfitUnit.Value.id);
+
                         break;
                     case OutfitType.Shirt:
                         string shirtId = UserData.GetCurrentSkinShirt();
-                        selectedObject.SetActive(shirtId == _outfitUnit.Value.id);
+                        if (string.IsNullOrEmpty(shirtId))
+                        {
+                            if (_outfitUnit.Value.unlockType == OutfitUnlockType.BeginnerGift)
+                            {
+                                UserData.SetCurrentSkinShirt(_outfitUnit.Value.id);
+                                selectedObject.SetActive(true);
+                            }
+                        }
+                        else selectedObject.SetActive(shirtId == _outfitUnit.Value.id);
+
                         break;
                     case OutfitType.Shoe:
                         string shoeId = UserData.GetCurrentSkinShoes();
-                        selectedObject.SetActive(shoeId == _outfitUnit.Value.id);
+                        if (string.IsNullOrEmpty(shoeId))
+                        {
+                            if (_outfitUnit.Value.unlockType == OutfitUnlockType.BeginnerGift)
+                            {
+                                UserData.SetCurrentSkinShoes(_outfitUnit.Value.id);
+                                selectedObject.SetActive(true);
+                            }
+                        }
+                        else selectedObject.SetActive(shoeId == _outfitUnit.Value.id);
+
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
