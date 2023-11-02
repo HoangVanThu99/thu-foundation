@@ -9,6 +9,8 @@ public class DiceRoller : GameComponent
 
     public void RollDicePressed()
     {
+        gameObject.SetActive(false);
         rollEvent.Raise();
     }
 }
+

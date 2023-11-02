@@ -87,9 +87,13 @@ namespace Pancake.SceneFlow
 
         private void SetupRolling()
         {
-            if (dices.TrueForAll(item => !item.isRoll))
+            if (dices.TrueForAll(item => item.isDoneRoll))
             {
                 diceRoller.gameObject.SetActive(true);
+                foreach (var dice in dices)
+                {
+                    dice.ResetRoll();
+                }
             }
         }
     }
