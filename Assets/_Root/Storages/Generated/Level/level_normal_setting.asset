@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TotalLevel>k__BackingField: 3
   <NumberInSegment>k__BackingField: 1
-  <Schema>k__BackingField: Level_{0}
+  <Schema>k__BackingField: Level {0}
   <LevelType>k__BackingField: {fileID: 11400000, guid: 81143fca18d352440a7bd3d0e8191892, type: 2}
   <LevelsLoopReplace>k__BackingField: []
